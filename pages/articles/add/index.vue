@@ -47,6 +47,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 export default Vue.extend({
+  loading: true,
   data() {
     return {
       form: {

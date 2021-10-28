@@ -13,12 +13,18 @@
     <b-row align-h="center" class="rowData">
       <b-col cols="12" md="9">
         <div>
-          <span>Title: </span>
-          <span>{{form.title}}</span>
-          <span>Description: </span>
-          <span>{{form.description}}</span>
-          <span>Author: </span>
-          <span>{{form.author}}</span>
+          <div>
+            <span>Title: </span>
+            <span>{{form.title}}</span>
+          </div>
+          <div>
+            <span>Description: </span>
+            <span>{{form.description}}</span>
+          </div>
+          <div>
+            <span>Author: </span>
+            <span>{{form.author}}</span>
+          </div>
         </div>
       </b-col>
     </b-row>
@@ -28,29 +34,36 @@
 import Vue from 'vue'
 import axios from 'axios'
 export default Vue.extend({
+
+  // asyncData({ params }) {
+  //   const slug = params.id;
+  //   return {slug};
+  // },
+
   data() {
     return {
-      id:'',
+      id: '',
       form: {
         title: '',
         description: '',
         author: ''
-      }
+      },
     }
   },
   created() {
-    this.id = this.$route.params._id;
+    this.id = this.$route.params.id;
+  },
+  mounted() {
     this.getArticle();
   },
   methods: {
     getArticle() {
-      axios.get(`http:localhost:8000/articles/${this.id}`).then((response) => {
+      axios.get(`http://localhost:8000/articles/${this.id}`).then((response) => {
         this.form = response.data;
-        console.log(this.id);
       }).catch((err) => {
         console.log(err);
       })
-    }
+    },
   }
 })
 </script>

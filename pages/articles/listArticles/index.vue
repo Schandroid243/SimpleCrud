@@ -21,7 +21,7 @@
           :current-page="currentPage"
           responsive="sm"
           striped>
-            <col v-for="article in listeArticle" :key="article._id">
+            <col v-for="(article, i) in listeArticle" :key="i">
             <template #cell(Title)="article">{{article.item.title}}</template>
             <template #cell(Description)="article">{{article.item.description}}</template>
             <template #cell(Author)="article">{{article.item.author}}</template>
@@ -68,6 +68,7 @@ import { BootstrapVueIcons } from 'bootstrap-vue'
 
 Vue.use(BootstrapVueIcons);
 export default Vue.extend({
+
   data() {
     return {
       currentPage: 1,
@@ -96,6 +97,7 @@ export default Vue.extend({
     delArticle(articleId: Text) {
       axios.delete(`http://localhost:8000/articles/${articleId}`).then((response) => {
         console.log(response.data);
+        this.getArticle();
       }).catch((err) => {
         console.log(err);
       })

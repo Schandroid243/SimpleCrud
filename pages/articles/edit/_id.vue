@@ -44,12 +44,14 @@
   </b-container>
 </template>
 <script lang="ts">
-import Vue from 'vue'
 import axios from 'axios'
+import Vue from 'vue'
+
 export default Vue.extend({
+
   data() {
     return {
-      id:'',
+      id: '',
       form: {
         title: '',
         description: '',
@@ -59,8 +61,16 @@ export default Vue.extend({
     }
   },
 
+  // asyncData ({ params }) {
+  //   const slug = params.id
+  //   return { slug }
+  // },
+
   created() {
-    this.id = this.$route.params._id;
+    this.id = this.$route.params.id;
+  },
+
+  mounted() {
     this.getArticle();
   },
 
@@ -68,14 +78,13 @@ export default Vue.extend({
     getArticle() {
       axios.get(`http://localhost:8000/articles/${this.id}`).then((response) => {
         this.form = response.data;
-        console.log(this.id);
       }).catch((err) => {
         console.log(err);
       })
     },
 
     submitForm() {
-      axios.put(`http://localhost:8000/articles/`, this.form).then((response) => {
+      axios.put(`http://localhost:8000/articles/${this.id}`, this.form).then((response) => {
         console.log(response.data);
         this.$router.go(-1);
       }).catch((err) => {

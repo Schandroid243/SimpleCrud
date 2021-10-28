@@ -1,12 +1,14 @@
 <template>
-  <b-container>
-    <b-row class="d-flex justify-content-center link">
-      <b-link :to="{name: 'articles-add'}">
-        Create an article
-      </b-link>
-    </b-row>
-  </b-container>
+
 </template>
+<script lang="ts">
+import Vue from 'vue'
+export default Vue.extend({
+  created() {
+    this.$router.push({name: 'articles-add'});
+  }
+})
+</script>
 <style scoped>
   .link {
     margin-top: 150px;
